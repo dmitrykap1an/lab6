@@ -16,8 +16,6 @@ class Client(commandFinder : CommandFinder, port : Int, host : String) : Runnabl
     private val commandFinder : CommandFinder = commandFinder;
     private val PORT = port;
     private val HOST = host;
-        companion object{ var checker = false}
-
 
     override fun run(){
 
@@ -35,19 +33,23 @@ class Client(commandFinder : CommandFinder, port : Int, host : String) : Runnabl
                     outt.flush()
                     val serverWords = inn.readLines() // ждём, что скажет сервер
                     serverWords.forEach { println(it) } // получив - выводим на экран
+                    if(command.getNameCommand() == "exit"){
+                        exitProcess(0)
+                    }
 
                 } catch (e: ConnectException) {
                             println("Связь нарушена")
                 } catch (e : CommandException){
                             println("Команда не найдена")
                 }catch (e : EOFException){
-                            println("EOF")
+                            println("Ошибка конца ввода")
                 }catch (e : SocketException) {
                             println("Сервер закрыт")
                 }finally {
-                        clientSocket.close()
-                        inn.close()
-                        outt.close()
+                    clientSocket.close()
+                    inn.close()
+                    outt.close()
+
                     }
                 }
         }catch (e : UninitializedPropertyAccessException){

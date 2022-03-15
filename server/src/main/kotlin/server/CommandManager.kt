@@ -1,6 +1,6 @@
 package server
 
-import client.Client
+import client.FileManager
 import general.commands.*
 import general.AppIO.CommandSerialize
 import main.resources.commands.*
@@ -151,10 +151,9 @@ class CommandManager(
             userCommand.getNameCommand() == "exit" -> {
 
                 Server.outt.write("Программа завершена")
+                Server.logger.info("Клиент завершил работу")
                 Server.outt.flush()
                 save();
-
-                Client.checker = true;
 
             }
 
@@ -173,7 +172,7 @@ class CommandManager(
             else -> {
                 Server.outt.write("Команда не найдена")
                 Server.outt.flush()
-                Server.logger.info("CommandManager :Команда не обнаружена");
+                Server.logger.info("CommandManager : Команда не обнаружена");
             }
 
 

@@ -29,6 +29,7 @@ class Server(commandManager: CommandManager, port : Int, soTimeOut : Int) : Runn
                     connectToClient()
 
                     try {
+
                         outt = BufferedWriter(OutputStreamWriter(clientSocket.getOutputStream()))
                         inn = ObjectInputStream(clientSocket.getInputStream())
                         val command = inn.readObject() as CommandSerialize;
@@ -49,6 +50,8 @@ class Server(commandManager: CommandManager, port : Int, soTimeOut : Int) : Runn
 
             }catch (e : SocketException){
                 logger.error("Потеряно соединение")
+            }catch (e : UninitializedPropertyAccessException){
+                println("Клиентский сокет не был создан")
             } finally{
                 serverStop()
             }
@@ -62,10 +65,10 @@ class Server(commandManager: CommandManager, port : Int, soTimeOut : Int) : Runn
             server!!.close()
             println("Работа сервера успешно завершена.")
             logger.info("Работа сервера успешно завершена.")
-        } catch (exception: CloseSocketException) {
+        } catch (e : CloseSocketException) {
             println("Невозможно завершить работу сервера : сервер изначально был закрыт!")
             logger.error("Невозможно завершить работу сервера : сервер изначально был закрыт!")
-        } catch (exception: IOException) {
+        } catch (e : IOException) {
             println("Произошла ошибка при завершении работы сервера!")
             logger.error("Произошла ошибка при завершении работы сервера!")
         }
@@ -79,7 +82,7 @@ class Server(commandManager: CommandManager, port : Int, soTimeOut : Int) : Runn
             server!!.soTimeout = soTimeOut
             logger.info("Сервер успешно запущен.")
             println("Сервер успешно запущен.")
-        } catch (exception: IOException) {
+        } catch (e: IOException) {
             logger.fatal("Произошла ошибка при попытке использовать порт '$PORT'!")
             println("Произошла ошибка при попытке использовать порт '$PORT'!")
         }
@@ -95,12 +98,14 @@ class Server(commandManager: CommandManager, port : Int, soTimeOut : Int) : Runn
             logger.info("Соединение с клиентом успешно установлено.")
             println("Соединение с клиентом успешно установлено.")
 
-        } catch (exception: SocketTimeoutException) {
+        } catch (e : SocketTimeoutException) {
             logger.warn("Превышено время ожидания подключения!")
             println("Превышено время ожидания подключения!")
-        } catch (exception: IOException){
+        } catch (e : IOException){
             logger.error("Произошла ошибка при соединении с клиентом!")
             println("Произошла ошибка при соединении с клиентом!")
+        }catch (e : NullPointerException){
+            println("Соединение с клиентом не установлено")
         }
     }
 }
