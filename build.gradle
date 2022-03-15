@@ -1,0 +1,71 @@
+plugins {
+
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.10'
+    id 'io.github.sergeshustoff.dikt' version '1.0.0-alpha8'
+}
+
+repositories{
+    mavenCentral()
+    mavenCentral()
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'com.github.johnrengelman.shadow'
+    apply plugin: 'org.jetbrains.kotlin.jvm'
+    apply plugin: 'io.github.sergeshustoff.dikt'
+
+    repositories {
+        mavenCentral()
+        mavenCentral()
+    }
+}
+
+project(':server') {
+    apply plugin: 'application'
+    apply plugin:  'io.github.sergeshustoff.dikt'
+    mainClassName = 'src/main/kotlin/AppKt'
+
+
+    dependencies {
+        implementation project(':client')
+        implementation project(":general")
+        implementation 'com.google.code.gson:gson:2.9.0'
+        implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.2'
+        implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.2'
+    }
+    jar {
+        manifest {
+            attributes 'Main-Class': 'Server.kt'
+        }
+    }
+}
+
+project(':client') {
+    apply plugin: 'application'
+    apply plugin:  'io.github.sergeshustoff.dikt'
+    mainClassName = 'App2Kt'
+
+
+    dependencies {
+        implementation project(":general")
+        implementation 'com.google.code.gson:gson:2.9.0'
+    }
+
+
+    run {
+        standardInput = System.in
+    }
+    jar {
+        manifest {
+            attributes 'Main-Class': 'Client.kt'
+        }
+    }
+}
+
+
+
+
+
