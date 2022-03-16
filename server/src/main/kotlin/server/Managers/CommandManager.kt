@@ -1,9 +1,10 @@
-package server
+package server.Managers
 
-import client.FileManager
+import client.Managers.FileManager
 import general.commands.*
 import general.AppIO.CommandSerialize
 import main.resources.commands.*
+import server.Server
 
 
 /**

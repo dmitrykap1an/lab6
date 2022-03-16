@@ -1,5 +1,6 @@
 package client
 
+import client.Managers.CommandFinder
 import general.Exceptions.CommandException
 import java.io.*
 import java.net.ConnectException

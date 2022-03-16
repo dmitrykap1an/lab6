@@ -1,9 +1,10 @@
-package server
+package server.Managers
 
 import JavaClasses.MusicBand
-import client.FileManager
+import client.Managers.FileManager
 import general.AppIO.InputData
 import general.Exceptions.EmptyArgumentException
+import server.Server
 import java.time.LocalDateTime
 import java.util.*
 import kotlin.math.max

@@ -3,7 +3,7 @@ plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '7.1.0'
     id 'org.jetbrains.kotlin.jvm' version '1.6.10'
-//    id 'io.github.sergeshustoff.dikt' version '1.0.0-alpha8'
+    id 'io.github.sergeshustoff.dikt' version '1.0.0-alpha8'
 }
 
 repositories{
@@ -15,7 +15,7 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'com.github.johnrengelman.shadow'
     apply plugin: 'org.jetbrains.kotlin.jvm'
-//    apply plugin: 'io.github.sergeshustoff.dikt'
+    apply plugin: 'io.github.sergeshustoff.dikt'
 
     repositories {
         mavenCentral()
@@ -25,7 +25,7 @@ subprojects {
 
 project(':server') {
     apply plugin: 'application'
-//    apply plugin:  'io.github.sergeshustoff.dikt'
+    apply plugin:  'io.github.sergeshustoff.dikt'
     mainClassName = 'server.ServerAppKt'
 
 
@@ -46,7 +46,7 @@ project(':server') {
 
 project(':client') {
     apply plugin: 'application'
-//    apply plugin:  'io.github.sergeshustoff.dikt'
+    apply plugin:  'io.github.sergeshustoff.dikt'
     mainClassName = 'client.ClientAppKt'
 
 
